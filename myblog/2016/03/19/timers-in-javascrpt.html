@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <title>关于javascript中的那些Timers</title>
+    <meta name="description" content="setTimeout()和setInterval()可以用来注册在指定的时间之后单次或重复调用的函数。">
+
+    <link rel="stylesheet" href=" /css/main.css ">
+    <!--[if lte IE 8]><script src=" /css/ie/html5shiv.js "></script><![endif]-->
+    <script src=" /js/jquery.min.js "></script>
+    <script src=" /js/jquery.poptrox.min.js "></script>
+    <script src=" /js/skel.min.js "></script>
+    <script src=" /js/init.js "></script>
+    <noscript>
+        <link rel="stylesheet" href=" /css/skel.css "/>
+        <link rel="stylesheet" href=" /css/style.css "/>
+        <link rel="stylesheet" href=" /css/style-xlarge.css "/>
+    </noscript>
+    <!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css"/><![endif]-->
+</head>
+
+  <body id="top">
+
+    <header id="header">
+    <h1><strong>Worried-k Blog</strong></h1>
+    <h6><strong>Live in the present !</strong></h6>
+</header>
+
+    <div id="main">
+        <section>
+    <header>
+        <h4>关于javascript中的那些Timers</h4>
+        <p>Mar 19, 2016</p>
+    </header>
+    <p><p><strong>setTimeout()和setInterval()可以用来注册在指定的时间之后单次或重复调用的函数。</strong></p>
+
+<h3 id="settimeoutsetinterval">setTimeout()和setInterval()相同点</h3>
+<ol>
+  <li>都是客户端JavaScript中的全局对象Window对象下的方法。</li>
+  <li>它们在执行后都会返回一个值，这个值可以传递给clearTimout()用于取消这个函数的执行。</li>
+  <li>由于历史原因，它们的第一个参数都可以作为字符串传入。</li>
+  <li>第二个参数的单位都为 毫秒。</li>
+</ol>
+
+<h3 id="settimeoutsetinterval-1">setTimeout()和setInterval()的特点</h3>
+<ul>
+  <li>如果以0毫秒的超时来调用setTimeout(),那么指定的函数不会立刻执行。相反，会把它放到队列中，等到前面处于等待状态的事件处理程序全部执行完后，再“立刻”去调用它。
+(来自 JavaScript权威指南)</li>
+  <li>JavaScript属于“单线程”的“事件驱动”机制！我可以认为js有一个 事件回调函数 的执行队列，当加载完js并完成解析后，
+此前解析过中发生的事件的“回调函数”已经按照原事件触发的时间为顺序形成了一个执行队列！当js完成解析后，浏览器会去查看 js的事件执行队列，并将按照事件队列的顺序挨个执行！</li>
+  <li>如果js线程在解析过程中遇到setTimeout函数，则会将所需要等待的时间和回调函数提交给浏览器，当时钟到达所需要等待的时间时，
+浏览器会将“setTimeout的回调函数执行事件”添加到事件队列中，等待js线程去处理！所以setTimeout(function() {}, 0);并不是立即执行！
+它执行开始的时间取决于js还没有解析的那部分代码的执行时间和它所处的事件队列的顺序。</li>
+  <li>回调函数开始执行的时间 = js解析完成setTimeout或setInterval的时间 + 剩余js代码的执行时间 + 排在其回调函数执行事件前代码执行需要的时间！</li>
+  <li>setInterval在解析完成后，每当时钟达到所需要等待的时间时，浏览器就会向“js回调事件执行队列中”添加一条信息！
+在添加“setInterval回调执行事件时”，如果之前添加的“setInterval回调执行事件“还没有被执行，则不再向队列中添加此事件！将直接跳过，等待下个时钟！！！
+如果，利用setInterval的回调做 数秒计时 的话，可能结果会有所偏差！所以计时累的操作会里有 系统时间 + timer 去做！！！</li>
+  <li>
+    <p>javascript事件处理图例： <img src="/images/assets/Timers.png" alt="javascript事件处理图例" /></p>
+  </li>
+  <li>详情请参照：http://ejohn.org/blog/how-javascript-timers-work/#postcomment</li>
+</ul>
+</p>
+</section>
+    </div>
+
+    <footer id="footer">
+    <ul class="icons">
+        <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+        <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+        <li><a href="https://github.com/worried-k" target="_blank" class="icon fa-github"><span class="label">Github</span></a></li>
+        <li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+    </ul>
+    <ul class="copyright">
+        <li>&copy; 2016</li>
+        <li>worried-k 转载请注明出处</li>
+    </ul>
+</footer>
+
+  </body>
+
+</html>

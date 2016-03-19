@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <title>关于javascript中this的那些事</title>
+    <meta name="description" content="this是Javascript语言中的一个关键字!（不是变量，也不是属性）它是面向对象编程范例的核心之一。this没有作用域的限制，嵌套函数不会从调用它的函数中继承到this!">
+
+    <link rel="stylesheet" href=" /css/main.css ">
+    <!--[if lte IE 8]><script src=" /css/ie/html5shiv.js "></script><![endif]-->
+    <script src=" /js/jquery.min.js "></script>
+    <script src=" /js/jquery.poptrox.min.js "></script>
+    <script src=" /js/skel.min.js "></script>
+    <script src=" /js/init.js "></script>
+    <noscript>
+        <link rel="stylesheet" href=" /css/skel.css "/>
+        <link rel="stylesheet" href=" /css/style.css "/>
+        <link rel="stylesheet" href=" /css/style-xlarge.css "/>
+    </noscript>
+    <!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css"/><![endif]-->
+</head>
+
+  <body id="top">
+
+    <header id="header">
+    <h1><strong>Worried-k Blog</strong></h1>
+    <h6><strong>Live in the present !</strong></h6>
+</header>
+
+    <div id="main">
+        <section>
+    <header>
+        <h4>关于javascript中this的那些事</h4>
+        <p>Mar 18, 2016</p>
+    </header>
+    <p><p><strong>this是Javascript语言中的一个关键字!（不是变量，也不是属性）</strong>它是面向对象编程范例的核心之一。this没有作用域的限制，嵌套函数不会从调用它的函数中继承到this!</p>
+
+<h2 id="this6">this运用的6种场景：</h2>
+
+<h3 id="thisthis">1.如果this所位于函数被作为方法调用，此时this的值指向调用这个函数的对象</h3>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">var</span> <span class="n">demo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="ss">speak: </span><span class="s2">"my name is demo!"</span><span class="p">,</span>
+    <span class="ss">test: </span><span class="n">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="n">this</span><span class="p">.</span><span class="nf">speak</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="n">demo</span><span class="p">.</span><span class="nf">test</span><span class="p">();</span><span class="sr">//m</span><span class="n">y</span> <span class="nb">name</span> <span class="n">is</span> <span class="n">demo!</span></code></pre></figure>
+
+<h3 id="thisthiswindows">2.如果this所位于嵌套函数中被作为函数调用，在非严格模式下，此时this指向全局对象！（运行于浏览器时，指向Windows）</h3>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">var</span> <span class="n">demo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="ss">test: </span><span class="n">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">function</span> <span class="n">inner_test</span><span class="p">()</span> <span class="p">{</span>
+            <span class="n">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="n">this</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">inner_test</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="n">demo</span><span class="p">.</span><span class="nf">test</span><span class="p">();</span><span class="sr">//</span><span class="n">windows</span></code></pre></figure>
+
+<h3 id="thisthisundefined">3.如果this所位于嵌套函数中被作为函数调用，在严格模式下，此时this指向undefined</h3>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="s2">"use strict"</span><span class="p">;</span>
+<span class="n">var</span> <span class="n">demo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="ss">test: </span><span class="n">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="n">function</span> <span class="n">inner_test</span><span class="p">()</span> <span class="p">{</span>
+            <span class="n">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="n">this</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">inner_test</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+<span class="n">demo</span><span class="p">.</span><span class="nf">test</span><span class="p">();</span><span class="sr">//un</span><span class="n">defined</span></code></pre></figure>
+
+<h3 id="thisthis-1">4.如果this所位于嵌套函数中被作为构造函数调用，此时this指向这个新生成的对象</h3>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">var</span> <span class="n">goble_num</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">function</span> <span class="n">demo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">this</span><span class="p">.</span><span class="nf">goble_num</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">demo</span><span class="p">();</span>
+<span class="n">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="n">goble_num</span><span class="p">);</span><span class="sr">//</span><span class="mi">2</span><span class="p">,</span><span class="err">此时</span><span class="n">this</span><span class="err">指向全局对象</span>
+<span class="n">goble_num</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="sr">//</span><span class="err">恢复全局变量</span><span class="n">goble_num</span>
+<span class="n">var</span> <span class="n">d</span> <span class="o">=</span> <span class="kp">new</span> <span class="n">demo</span><span class="p">();</span>
+<span class="n">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="nf">goble_num</span><span class="p">);</span><span class="sr">//</span><span class="mi">2</span></code></pre></figure>
+
+<h3 id="thisapplycallthisapplycall">5.如果this所位于嵌套函数调用了apply或call函数，此时this指向apply或call函数的第一个参数</h3>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">var</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">function</span> <span class="n">demo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="n">this</span><span class="p">.</span><span class="nf">num</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="n">var</span> <span class="n">o</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="n">o</span><span class="p">.</span><span class="nf">num</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="n">o</span><span class="p">.</span><span class="nf">demo</span> <span class="o">=</span> <span class="n">demo</span><span class="p">;</span>
+<span class="n">o</span><span class="p">.</span><span class="nf">demo</span><span class="p">.</span><span class="nf">apply</span><span class="p">();</span><span class="sr">//</span><span class="mi">1</span><span class="p">,</span><span class="n">apply</span><span class="p">()</span><span class="err">的参数为空时，默认调用全局对象</span>
+<span class="n">o</span><span class="p">.</span><span class="nf">demo</span><span class="p">.</span><span class="nf">apply</span><span class="p">(</span><span class="n">o</span><span class="p">);</span><span class="sr">//</span><span class="mi">2</span></code></pre></figure>
+
+<h3 id="thishtml-this----object-htmlinputelement">6.如果this在HTML的标签中被当做事件绑定回调函数的参数传入 ，此时this指向触发事件的对象—-[object HTMLInputElement]</h3>
+</p>
+</section>
+    </div>
+
+    <footer id="footer">
+    <ul class="icons">
+        <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+        <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+        <li><a href="https://github.com/worried-k" target="_blank" class="icon fa-github"><span class="label">Github</span></a></li>
+        <li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+    </ul>
+    <ul class="copyright">
+        <li>&copy; 2016</li>
+        <li>worried-k 转载请注明出处</li>
+    </ul>
+</footer>
+
+  </body>
+
+</html>
