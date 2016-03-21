@@ -41,7 +41,7 @@
 
 <h2 id="this6">this运用的6种场景：</h2>
 
-<h3 id="thisthis">1.如果this所位于函数被作为方法调用，此时this的值指向调用这个函数的对象</h3>
+<h3 id="thisthis">1.如果this所位于的函数被作为方法调用，此时this的值指向调用这个函数的对象</h3>
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">var</span> <span class="n">demo</span> <span class="o">=</span> <span class="p">{</span>
     <span class="ss">speak: </span><span class="s2">"my name is demo!"</span><span class="p">,</span>
@@ -51,7 +51,7 @@
 <span class="p">};</span>
 <span class="n">demo</span><span class="p">.</span><span class="nf">test</span><span class="p">();</span><span class="sr">//m</span><span class="n">y</span> <span class="nb">name</span> <span class="n">is</span> <span class="n">demo!</span></code></pre></figure>
 
-<h3 id="thisthiswindows">2.如果this所位于嵌套函数中被作为函数调用，在非严格模式下，此时this指向全局对象！（运行于浏览器时，指向Windows）</h3>
+<h3 id="thisthiswindows">2.如果this所位于的嵌套函数中被作为函数调用，在非严格模式下，此时this指向全局对象！（运行于浏览器时，指向Windows）</h3>
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">var</span> <span class="n">demo</span> <span class="o">=</span> <span class="p">{</span>
     <span class="ss">test: </span><span class="n">function</span><span class="p">()</span> <span class="p">{</span>
@@ -63,7 +63,7 @@
 <span class="p">};</span>
 <span class="n">demo</span><span class="p">.</span><span class="nf">test</span><span class="p">();</span><span class="sr">//</span><span class="n">windows</span></code></pre></figure>
 
-<h3 id="thisthisundefined">3.如果this所位于嵌套函数中被作为函数调用，在严格模式下，此时this指向undefined</h3>
+<h3 id="thisthisundefined">3.如果this所位于的嵌套函数中被作为函数调用，在严格模式下，此时this指向undefined</h3>
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="s2">"use strict"</span><span class="p">;</span>
 <span class="n">var</span> <span class="n">demo</span> <span class="o">=</span> <span class="p">{</span>
@@ -76,7 +76,7 @@
 <span class="p">};</span>
 <span class="n">demo</span><span class="p">.</span><span class="nf">test</span><span class="p">();</span><span class="sr">//un</span><span class="n">defined</span></code></pre></figure>
 
-<h3 id="thisthis-1">4.如果this所位于嵌套函数中被作为构造函数调用，此时this指向这个新生成的对象</h3>
+<h3 id="thisthis-1">4.如果this所位于的嵌套函数中被作为构造函数调用，此时this指向这个新生成的对象</h3>
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">var</span> <span class="n">goble_num</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 <span class="n">function</span> <span class="n">demo</span><span class="p">()</span> <span class="p">{</span>
@@ -86,9 +86,10 @@
 <span class="n">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="n">goble_num</span><span class="p">);</span><span class="sr">//</span><span class="mi">2</span><span class="p">,</span><span class="err">此时</span><span class="n">this</span><span class="err">指向全局对象</span>
 <span class="n">goble_num</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span><span class="sr">//</span><span class="err">恢复全局变量</span><span class="n">goble_num</span>
 <span class="n">var</span> <span class="n">d</span> <span class="o">=</span> <span class="kp">new</span> <span class="n">demo</span><span class="p">();</span>
-<span class="n">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="nf">goble_num</span><span class="p">);</span><span class="sr">//</span><span class="mi">2</span></code></pre></figure>
+<span class="n">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="n">d</span><span class="p">.</span><span class="nf">goble_num</span><span class="p">);</span><span class="sr">//</span><span class="mi">2</span>
+<span class="n">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="n">goble_num</span><span class="p">);</span><span class="sr">//</span><span class="mi">1</span></code></pre></figure>
 
-<h3 id="thisapplycallthisapplycall">5.如果this所位于嵌套函数调用了apply或call函数，此时this指向apply或call函数的第一个参数</h3>
+<h3 id="thisapplycallthisapplycall">5.如果this所位于的嵌套函数调用了apply或call函数，此时this指向apply或call函数的第一个参数</h3>
 
 <figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">var</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
 <span class="n">function</span> <span class="n">demo</span><span class="p">()</span> <span class="p">{</span>
