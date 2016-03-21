@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <title>关于javascript中的闭包</title>
+    <meta name="description" content="函数对象可以通过作用域链相互关联起来，函数体内部的变量都可以保存在函数作用域内，这种特性在计算机科学文献中称之为“闭包”">
+
+    <link rel="stylesheet" href=" /css/main.css ">
+    <!--[if lte IE 8]><script src=" /css/ie/html5shiv.js "></script><![endif]-->
+    <script src=" /js/jquery.min.js "></script>
+    <script src=" /js/jquery.poptrox.min.js "></script>
+    <script src=" /js/skel.min.js "></script>
+    <script src=" /js/init.js "></script>
+    <noscript>
+        <link rel="stylesheet" href=" /css/skel.css "/>
+        <link rel="stylesheet" href=" /css/style.css "/>
+        <link rel="stylesheet" href=" /css/style-xlarge.css "/>
+    </noscript>
+    <!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css"/><![endif]-->
+</head>
+
+  <body id="top">
+
+    <header id="header">
+    <h1><strong>Worried-k Blog</strong></h1>
+    <h6><strong>Live in the present !</strong></h6>
+</header>
+
+    <div id="main">
+        <section>
+    <header>
+        <h4>关于javascript中的闭包</h4>
+        <p>Mar 20, 2016</p>
+    </header>
+    <p><p><strong>函数对象可以通过作用域链相互关联起来，函数体内部的变量都可以保存在函数作用域内，这种特性在计算机科学文献中称之为“闭包”</strong></p>
+
+<h3 id="section">要了解闭包，首先要了解“词法作用域”与“作用域链”：</h3>
+
+<h4 id="javascriptgoogle">JavaScript使用的是函数作用域，而非块级作用域。（区别请自行google）</h4>
+
+<h4 id="javascriptscope-chain">每一段JavaScript代码（全局代码或函数）都有一个与之相关联的作用域链（scope chain）。这个作用域链是一个对象列表或者链表，这组对象定义了这段代码“作用域中”的变量。</h4>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">var</span> <span class="n">goble_num</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="n">function</span> <span class="n">demo</span><span class="p">()</span> <span class="p">{</span>
+     <span class="n">var</span> <span class="n">local_num</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+     <span class="n">var</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+     <span class="n">function</span> <span class="n">add</span><span class="p">()</span> <span class="p">{</span>
+          <span class="n">var</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+          <span class="n">var</span> <span class="n">c</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+         <span class="n">local_num</span> <span class="o">=</span> <span class="n">goble_num</span> <span class="o">+</span> <span class="n">c</span><span class="p">;</span>
+          <span class="k">return</span> <span class="n">local_num</span> <span class="p">;</span> 
+     <span class="p">}</span>
+     <span class="k">return</span> <span class="n">add</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">var</span> <span class="n">tools_add</span> <span class="o">=</span> <span class="n">demo</span><span class="p">();</span><span class="sr">//</span><span class="err">返回</span><span class="n">add</span><span class="err">函数</span>
+<span class="n">var</span> <span class="n">new_num</span> <span class="o">=</span> <span class="n">tools_add</span><span class="p">();</span><span class="sr">//</span><span class="err">返回一个新的数</span>
+<span class="n">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="n">local_num</span><span class="p">);</span><span class="sr">//un</span><span class="n">defined</span><span class="err">，函数作用域</span></code></pre></figure>
+
+<h4 id="add">内部函数add的作用域链（在解析时就决定了这个作用域链）为：</h4>
+<ol>
+  <li>—add函数的私有变量对象(包含变量b和c)</li>
+  <li>——demo函数的私有变量对象(包含变量a和local_num和函数add)</li>
+  <li>———goble scope</li>
+</ol>
+
+<h4 id="section-1">变量解析：</h4>
+<ol>
+  <li>当JavaScript执行到tools_add函数中的<code>local_num = goble_num + c;</code>时需要从add函数的作用域链上查找变量c、goble_num和local_num。</li>
+  <li>它会从链表中的第一个对象（tools_add函数的私有变量对象）开始查找，它找到了变量c，但并没有找到goble_num和local_num。</li>
+  <li>此时JavaScript会继续查找链上的下一个对象（demo函数的私有变量对象），它找到了变量local_num，但还是没有找到goble_num。</li>
+  <li>此时JavaScript则会继续查找链上的下一个对象，以此类推。</li>
+  <li>如果作用域链上没有任何一个对象含有属性goble_num,JavaScript就会认为这段代码的作用域链上不存在goble_num,并抛出引用错误（ReferenceError）异常。</li>
+  <li>如果找到了goble_num则终止查找。</li>
+</ol>
+
+<h4 id="section-2">闭包的特性“变量常驻内存”：</h4>
+
+<ul>
+  <li>每次调用JavaScript函数的时候，都会为之创建一个新的对象用来来保存局部变量，把这个对象添加至作用域链中。</li>
+  <li>当函数返回的时候，就从作用域链中将这个绑定对象的变量删除。如果不存在嵌套函数，也没有其他引用指向这个变量绑定对象，它就会被当做垃圾回收掉。
+（因为demo函数含有嵌套函数add，“demo函数的私有变量对象”就不会被当做垃圾回收）</li>
+  <li>如果定义了嵌套的函数，每个嵌套的函数都各自对应一条作用域链，并且这个作用域链都会指向一个共同的变量绑定对象。
+(同时存在多个类add的函数，它们的作用域链都同时指向了“demo函数的私有变量对象”)</li>
+  <li>但如果这些嵌套的函数对象在外部函数中被保存了下来，那么它们也会和所指向的变量绑定对象一样当做垃圾回收。
+（当执行到<code>var tools_add = demo();</code>时，嵌套函数add的变量绑定对象会被当做垃圾回收）</li>
+  <li>但如果这个嵌套函数被作为返回值返回或者储存在某处的属性里，这时就会有一个外部引用指向这个嵌套的函数。它就不会被当做垃圾回收，并且他所指向的变量绑定对象也不会被当做垃圾回收</li>
+</ul>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">function</span> <span class="n">test1</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">demo</span><span class="p">();</span>
+<span class="p">}</span>
+<span class="sr">//</span><span class="err">或</span>
+<span class="n">function</span> <span class="n">test2</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">var</span> <span class="nb">p</span> <span class="o">=</span> <span class="n">demo</span><span class="p">();</span>
+    <span class="sr">//</span><span class="p">.</span><span class="nf">.</span><span class="o">.</span>
+<span class="p">}</span>
+<span class="sr">//</span><span class="err">如果存在以上</span><span class="mi">2</span><span class="err">种函数，则上面函数中的</span><span class="s2">"add函数的私有变量对象"</span><span class="err">则不会被当做垃圾回收</span>
+
+<span class="sr">//</span><span class="o">===</span><span class="err">分割线</span><span class="o">===</span>
+
+<span class="n">var</span> <span class="n">tools_add</span> <span class="o">=</span> <span class="n">demo</span><span class="p">();</span>
+<span class="sr">//</span><span class="n">demo</span><span class="err">函数的私有变量绑定对象</span><span class="p">,</span><span class="err">还能被引用的到！</span>
+<span class="n">var</span> <span class="n">new_num</span> <span class="o">=</span> <span class="n">tools_add</span><span class="p">();</span>
+<span class="sr">//</span><span class="n">demo</span><span class="err">函数的私有变量绑定对象</span><span class="p">,</span><span class="err">还能被引用的到！</span>
+<span class="n">new_num</span> <span class="o">=</span> <span class="n">tools_add</span><span class="p">();</span>
+<span class="sr">//</span><span class="p">.</span><span class="nf">.</span><span class="p">.</span>
+<span class="nf">new_num</span> <span class="o">=</span> <span class="n">tools_add</span><span class="p">();</span>
+<span class="sr">//</span><span class="err">所以它在此以前不会被垃圾回收机制回收，也就是所谓的“常驻内存”了</span></code></pre></figure>
+
+</p>
+</section>
+    </div>
+
+    <footer id="footer">
+    <ul class="icons">
+        <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+        <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+        <li><a href="https://github.com/worried-k" target="_blank" class="icon fa-github"><span class="label">Github</span></a></li>
+        <li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+    </ul>
+    <ul class="copyright">
+        <li>&copy; 2016</li>
+        <li>worried-k 转载请注明出处</li>
+    </ul>
+</footer>
+
+  </body>
+
+</html>
