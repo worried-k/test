@@ -96,7 +96,7 @@
 <span class="p">}</span>
 <span class="sr">//</span><span class="err">或</span>
 <span class="n">function</span> <span class="n">test2</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">var</span> <span class="nb">p</span> <span class="o">=</span> <span class="n">demo</span><span class="p">();</span>
+    <span class="n">this</span><span class="p">.</span><span class="nf">add</span> <span class="o">=</span> <span class="n">demo</span><span class="p">();</span>
     <span class="sr">//</span><span class="p">.</span><span class="nf">.</span><span class="o">.</span>
 <span class="p">}</span>
 <span class="sr">//</span><span class="err">如果存在以上</span><span class="mi">2</span><span class="err">种函数，则上面函数中的</span><span class="s2">"add函数的私有变量对象"</span><span class="err">则不会被当做垃圾回收</span>
