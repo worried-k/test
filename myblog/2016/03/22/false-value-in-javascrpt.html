@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <title>关于javascript中的假值</title>
+    <meta name="description" content="JavaScript变量是无类型的（untyped）,变量可以被赋予任何类型的值，其中有6个值属于假值">
+
+    <link rel="stylesheet" href=" /css/main.css ">
+    <!--[if lte IE 8]><script src=" /css/ie/html5shiv.js "></script><![endif]-->
+    <script src=" /js/jquery.min.js "></script>
+    <script src=" /js/jquery.poptrox.min.js "></script>
+    <script src=" /js/skel.min.js "></script>
+    <script src=" /js/init.js "></script>
+    <noscript>
+        <link rel="stylesheet" href=" /css/skel.css "/>
+        <link rel="stylesheet" href=" /css/style.css "/>
+        <link rel="stylesheet" href=" /css/style-xlarge.css "/>
+    </noscript>
+    <!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css"/><![endif]-->
+</head>
+
+  <body id="top">
+
+    <header id="header">
+    <h1><strong>Worried-k Blog</strong></h1>
+    <h6><strong>Live in the present !</strong></h6>
+</header>
+
+    <div id="main">
+        <section>
+    <header>
+        <h4>关于javascript中的假值</h4>
+        <p>Mar 22, 2016</p>
+    </header>
+    <p><p><strong>JavaScript变量是无类型的（untyped）,变量可以被赋予任何类型的值，其中有6个值属于假值</strong></p>
+
+<h4 id="javascript6">JavaScript中的6个值为“假”：</h4>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="kp">false</span>       <span class="sr">//</span><span class="err">布尔类型</span>
+<span class="n">null</span>        <span class="sr">//</span><span class="no">JavaScript</span><span class="err">语言关键字，可以认为</span><span class="n">null</span><span class="err">是一个特殊的对象</span>
+<span class="n">undefined</span>   <span class="sr">//</span><span class="err">预定义的全局变量，表达含义“未定义”</span>
+<span class="mi">0</span>           <span class="o">/</span><span class="sr">/数值0
+''          /</span><span class="o">/</span><span class="err">空字符串</span>
+<span class="no">NaN</span>         <span class="sr">//</span><span class="err">预定义的全局变量</span><span class="p">(</span><span class="n">not</span><span class="o">-</span><span class="n">a</span><span class="o">-</span><span class="n">nummber</span><span class="p">),</span><span class="err">用来表示没有意义的数字运算的结果</span></code></pre></figure>
+
+<h4 id="nullfalsefunction-">除了以上6个外，其它均为“真” ，包括对象、数组、正则、函数等。注意 ‘0’、’null’、’false’、{}、[]、function() {}等也都是真值</h4>
+
+<h4 id="section">虽然这六个值都为“假”，它们之间并非都相等“==”</h4>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span> <span class="kp">false</span> <span class="o">==</span> <span class="n">null</span> <span class="p">)</span>      <span class="o">/</span><span class="sr">/ false
+console.log( false == undefined ) /</span><span class="o">/</span> <span class="kp">false</span>
+<span class="n">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span> <span class="kp">false</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">)</span>         <span class="o">/</span><span class="sr">/ true
+console.log( false == '' )        /</span><span class="o">/</span> <span class="kp">true</span>
+<span class="n">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span> <span class="kp">false</span> <span class="o">==</span> <span class="no">NaN</span> <span class="p">)</span>       <span class="o">/</span><span class="sr">/ false
+
+console.log( null == undefined ) /</span><span class="o">/</span> <span class="kp">true</span> <span class="err">“特殊”</span>
+<span class="n">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span> <span class="n">null</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">)</span>         <span class="o">/</span><span class="sr">/ false
+console.log( null == '' )        /</span><span class="o">/</span> <span class="kp">false</span>
+<span class="n">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span> <span class="n">null</span> <span class="o">==</span> <span class="no">NaN</span> <span class="p">)</span>       <span class="o">/</span><span class="sr">/ false
+
+console.log( undefined == 0)   /</span><span class="o">/</span> <span class="kp">false</span>
+<span class="n">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span> <span class="n">undefined</span> <span class="o">==</span> <span class="s1">''</span><span class="p">)</span>  <span class="o">/</span><span class="sr">/ false
+console.log( undefined == NaN) /</span><span class="o">/</span> <span class="kp">false</span>
+
+<span class="n">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span> <span class="mi">0</span> <span class="o">==</span> <span class="s1">''</span> <span class="p">)</span>  <span class="o">/</span><span class="sr">/ true
+console.log( 0 == NaN ) /</span><span class="o">/</span> <span class="kp">false</span></code></pre></figure>
+
+<h4 id="javascript">JavaScript对象的比较是引用的比较，而非值得比较。对象和其本身是相等的，但和其它对象都不相等。</h4>
+
+<h4 id="section-1">“==” 与 “===”</h4>
+<ul>
+  <li>相同点：两个运算符允许任意类型的操作数，都返回boolean类型的true或false</li>
+  <li>“==”称之为相等运算符（equality operator）</li>
+  <li>“===”也称之为严格相等运算符（strict equality）或 恒等运算符（identity operator）</li>
+  <li>如果两个操作数的类型不同，“==”会进行类型转换，然后在做比较！“===”则不会进行任何类型转换</li>
+  <li>“==”判断中，<strong>不同类型</strong> 判断时，字符串、boolean会先转换成数值再进行判断。对象会先转换为原始值在进行比较</li>
+</ul>
+
+</p>
+</section>
+    </div>
+
+    <footer id="footer">
+    <ul class="icons">
+        <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+        <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+        <li><a href="https://github.com/worried-k" target="_blank" class="icon fa-github"><span class="label">Github</span></a></li>
+        <li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+    </ul>
+    <ul class="copyright">
+        <li>&copy; 2016</li>
+        <li>worried-k 转载请注明出处</li>
+    </ul>
+</footer>
+
+  </body>
+
+</html>
