@@ -70,17 +70,16 @@ console.log( undefined == NaN) /</span><span class="o">/</span> <span class="kp"
 <span class="n">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span> <span class="mi">0</span> <span class="o">==</span> <span class="s1">''</span> <span class="p">)</span>  <span class="o">/</span><span class="sr">/ true
 console.log( 0 == NaN ) /</span><span class="o">/</span> <span class="kp">false</span></code></pre></figure>
 
-<h4 id="javascript">JavaScript对象的比较是引用的比较，而非值得比较。对象和其本身是相等的，但和其它对象都不相等。</h4>
-
 <h4 id="section-1">“==” 与 “===”</h4>
 <ul>
   <li>相同点：两个运算符允许任意类型的操作数，都返回boolean类型的true或false</li>
   <li>“==”称之为相等运算符（equality operator）</li>
   <li>“===”也称之为严格相等运算符（strict equality）或 恒等运算符（identity operator）</li>
   <li>如果两个操作数的类型不同，“==”会进行类型转换，然后在做比较！“===”则不会进行任何类型转换</li>
-  <li>“==”判断中，<strong>不同类型</strong> 判断时，字符串、boolean会先转换成数值再进行判断。对象会先转换为原始值在进行比较</li>
+  <li>“==” 比较中，<strong>不同类型</strong> 比较时，字符串、boolean会先转换成数值类型再进行判断。对象会先转换为原始值在进行比较！</li>
 </ul>
 
+<h4 id="javascript">JavaScript对象的比较是引用的比较，而非值的比较。对象和其本身是相等的，但和其它对象都不相等。</h4>
 </p>
 </section>
     </div>
