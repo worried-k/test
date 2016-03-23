@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <title>关于JavaScript的AJAX</title>
+    <meta name="description" content="AJAX即“Asynchronous Javascript And XML”,核心是 XMLHttpRequest 对象！它类似于DHTML或LAMP，AJAX不是指一种单一的技术，而是有机地利用了一系列相关的技术。">
+
+    <link rel="stylesheet" href=" /css/main.css ">
+    <!--[if lte IE 8]><script src=" /css/ie/html5shiv.js "></script><![endif]-->
+    <script src=" /js/jquery.min.js "></script>
+    <script src=" /js/jquery.poptrox.min.js "></script>
+    <script src=" /js/skel.min.js "></script>
+    <script src=" /js/init.js "></script>
+    <noscript>
+        <link rel="stylesheet" href=" /css/skel.css "/>
+        <link rel="stylesheet" href=" /css/style.css "/>
+        <link rel="stylesheet" href=" /css/style-xlarge.css "/>
+    </noscript>
+    <!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css"/><![endif]-->
+</head>
+
+  <body id="top">
+
+    <header id="header">
+    <h1><strong>Worried-k Blog</strong></h1>
+    <h6><strong>Live in the present !</strong></h6>
+</header>
+
+    <div id="main">
+        <section>
+    <header>
+        <h4>关于JavaScript的AJAX</h4>
+        <p>Mar 23, 2016</p>
+    </header>
+    <p><p><strong>AJAX即“Asynchronous Javascript And XML”,核心是 XMLHttpRequest 对象！它类似于DHTML或LAMP，AJAX不是指一种单一的技术，而是有机地利用了一系列相关的技术。</strong></p>
+
+<h4 id="ajaxwindow">AJAX在本质上是一个浏览器端的技术（依赖于全局对象window），所以它也有很多浏览器的兼容性问题</h4>
+
+<h4 id="section">原生代码：</h4>
+
+<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">function</span> <span class="n">createXHR</span><span class="p">(){</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">typeof</span> <span class="no">XMLHttpRequest</span> <span class="o">!=</span> <span class="s2">"undefined"</span><span class="p">){</span> <span class="sr">//</span> <span class="err">非</span><span class="no">IE6</span><span class="err">浏览器</span>
+        <span class="k">return</span> <span class="kp">new</span> <span class="no">XMLHttpRequest</span><span class="p">();</span>
+    <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">typeof</span> <span class="no">ActiveXObject</span> <span class="o">!=</span> <span class="s2">"undefined"</span><span class="p">){</span>   <span class="sr">//</span> <span class="no">IE6</span><span class="err">浏览器</span>
+        <span class="n">var</span> <span class="n">version</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">"MSXML2.XMLHttp.6.0"</span><span class="p">,</span>
+            <span class="s2">"MSXML2.XMLHttp.3.0"</span><span class="p">,</span>
+            <span class="s2">"MSXML2.XMLHttp"</span><span class="p">,</span>
+        <span class="p">];</span>
+        <span class="k">for</span><span class="p">(</span><span class="n">var</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">version</span><span class="p">.</span><span class="nf">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+            <span class="n">try</span><span class="p">{</span>
+                <span class="k">return</span> <span class="kp">new</span> <span class="no">ActiveXObject</span><span class="p">(</span><span class="n">version</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+            <span class="p">}</span><span class="kp">catch</span><span class="p">(</span><span class="n">e</span><span class="p">){</span>
+                <span class="sr">//</span><span class="err">异常处理</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="kp">throw</span> <span class="kp">new</span> <span class="no">Error</span><span class="p">(</span><span class="s2">"您的系统或浏览器不支持XHR对象！"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="sr">//</span> <span class="err">封装</span><span class="n">ajax</span>
+<span class="n">function</span> <span class="n">do_ajax</span><span class="p">(</span><span class="n">obj</span><span class="p">){</span>
+    <span class="n">var</span> <span class="n">xhr</span> <span class="o">=</span> <span class="n">createXHR</span><span class="p">();</span>
+    <span class="n">obj</span><span class="p">.</span><span class="nf">url</span> <span class="o">=</span> <span class="n">obj</span><span class="p">.</span><span class="nf">url</span> <span class="o">+</span> <span class="s2">"?rand="</span> <span class="o">+</span> <span class="no">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">();</span> <span class="sr">//</span> <span class="err">清除缓存</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">obj</span><span class="p">.</span><span class="nf">method</span> <span class="o">===</span> <span class="s2">"get"</span><span class="p">){</span>      <span class="sr">//</span> <span class="err">判断使用的是否是</span><span class="n">get</span><span class="err">方式发送</span>
+        <span class="n">obj</span><span class="p">.</span><span class="nf">url</span> <span class="o">+=</span> <span class="n">obj</span><span class="p">.</span><span class="nf">url</span><span class="p">.</span><span class="nf">indexOf</span><span class="p">(</span><span class="s2">"?"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"-1"</span> <span class="p">?</span> <span class="s2">"?"</span> <span class="o">+</span> <span class="n">obj</span><span class="p">.</span><span class="nf">data</span> <span class="p">:</span> <span class="s2">"&amp;"</span> <span class="o">+</span> <span class="n">obj</span><span class="p">.</span><span class="nf">data</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="sr">//</span> <span class="err">异步</span>
+    <span class="sr">//</span> <span class="err">异步的时候需要触发</span><span class="n">onreadystatechange</span><span class="err">事件</span>
+    <span class="n">xhr</span><span class="p">.</span><span class="nf">onreadystatechange</span> <span class="o">=</span> <span class="n">function</span><span class="p">(){</span>
+        <span class="sr">//</span> <span class="err">执行完成</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">xhr</span><span class="p">.</span><span class="nf">readyState</span> <span class="o">==</span> <span class="mi">4</span><span class="p">){</span>
+            <span class="n">callBack</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">xhr</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="n">obj</span><span class="p">.</span><span class="nf">method</span><span class="p">,</span><span class="n">obj</span><span class="p">.</span><span class="nf">url</span><span class="p">,</span><span class="kp">true</span><span class="p">);</span>
+    <span class="n">xhr</span><span class="p">.</span><span class="nf">send</span><span class="p">(</span><span class="kp">true</span><span class="p">);</span>
+    <span class="sr">//</span> <span class="err">返回数据</span>
+    <span class="n">function</span> <span class="n">callBack</span><span class="p">(){</span>
+        <span class="sr">//</span> <span class="err">判断是否返回正确</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">xhr</span><span class="p">.</span><span class="nf">status</span> <span class="o">==</span> <span class="mi">200</span><span class="p">){</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">typeof</span> <span class="n">obj</span><span class="p">.</span><span class="nf">success</span> <span class="o">==</span> <span class="s2">"function"</span><span class="p">)</span> <span class="p">{</span>
+              <span class="n">obj</span><span class="p">.</span><span class="nf">success</span><span class="p">(</span><span class="n">xhr</span><span class="p">.</span><span class="nf">response</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">typeof</span> <span class="n">obj</span><span class="p">.</span><span class="nf">error</span> <span class="o">==</span> <span class="s2">"function"</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">obj</span><span class="p">.</span><span class="nf">success</span><span class="p">(</span><span class="n">xhr</span><span class="p">.</span><span class="nf">response</span><span class="p">);</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">do_ajax</span><span class="p">({</span>
+    <span class="s2">"method"</span> <span class="p">:</span> <span class="s2">"get"</span><span class="p">,</span>
+    <span class="s2">"url"</span> <span class="p">:</span> <span class="s2">"目的URI"</span><span class="p">,</span>
+    <span class="s2">"data"</span> <span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
+    <span class="s2">"success"</span> <span class="p">:</span> <span class="n">function</span><span class="p">(</span><span class="n">data</span><span class="p">){</span>
+        <span class="sr">//</span><span class="err">成功处理动作</span>
+    <span class="p">},</span>
+    <span class="s2">"error"</span> <span class="p">:</span> <span class="n">function</span><span class="p">(</span><span class="n">data</span><span class="p">){</span>
+        <span class="sr">//</span><span class="err">失败处理动作</span>
+    <span class="p">}</span>
+<span class="p">});</span></code></pre></figure>
+</p>
+</section>
+    </div>
+
+    <footer id="footer">
+    <ul class="icons">
+        <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+        <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+        <li><a href="https://github.com/worried-k" target="_blank" class="icon fa-github"><span class="label">Github</span></a></li>
+        <li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+    </ul>
+    <ul class="copyright">
+        <li>&copy; 2016</li>
+        <li>worried-k 转载请注明出处</li>
+    </ul>
+</footer>
+
+  </body>
+
+</html>
