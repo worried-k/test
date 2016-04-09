@@ -8,7 +8,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="" />
     <title>关于JavaScript的同源策略</title>
-    <meta name="description" content="同源策略，它是由Netscape提出的一个著名的安全策略，现在所有的可支持javascript的浏览器都会使用这个策略。———部分内容为摘录">
+    <meta name="description" content="同源策略，它是由Netscape提出的一个著名的安全策略，现在所有的可支持javascript的主流浏览器都会使用这个策略（注意关键字：“浏览器” 使用的 “安全策略”）">
 
     <link rel="stylesheet" href=" /css/main.css ">
     <!--[if lte IE 8]><script src=" /css/ie/html5shiv.js "></script><![endif]-->
@@ -27,7 +27,7 @@
   <body id="top">
 
     <header id="header">
-    <h1><strong>Worried-k Blog</strong></h1>
+    <h1><a href="/"><strong>Worried-k Blog</strong></a></h1>
     <h6><strong>Live in the present !</strong></h6>
 </header>
 
@@ -37,11 +37,11 @@
         <h4>关于JavaScript的同源策略</h4>
         <p>Mar 26, 2016</p>
     </header>
-    <p><p><strong>同源策略，它是由Netscape提出的一个著名的安全策略，现在所有的可支持javascript的浏览器都会使用这个策略。———部分内容为摘录</strong></p>
+    <p><p><strong>同源策略，它是由Netscape提出的一个著名的安全策略，现在所有的可支持javascript的主流浏览器都会使用这个策略（注意关键字：“浏览器” 使用的 “安全策略”）</strong></p>
 
 <h4 id="section">同源</h4>
 <ul>
-  <li>同domain（或ip）,同端口，同协议视为同一个域，一个域内的脚本仅仅具有本域内的权限，可以理解为本域脚本只能读写本域内的资源，而无法访问其它域的资源。</li>
+  <li>同domain（或ip）,同端口，同协议视为同一个域，一个域内的脚本仅仅具有本域内的权限，可以理解为本域脚本只能读写本域内的资源，而无法访问到其它域的资源。</li>
 </ul>
 
 <h4 id="section-1">源继承</h4>
@@ -68,9 +68,11 @@
 
 <h4 id="xmlhttprequest--">跨域网络访问,同源策略控制了不同源之间的交互，例如在使用XMLHttpRequest 或 标签时则会受到同源策略的约束。交互通常分为三类：</h4>
 <ol>
-  <li>通常允许进行跨域写操作（Cross-origin writes）。例如链接（links），重定向以及表单提交。特定少数的HTTP请求需要添加 preflight。</li>
-  <li>通常允许跨域资源嵌入（Cross-origin embedding）。之后下面会举例说明。</li>
-  <li>通常不允许跨域读操作（Cross-origin reads）。但常可以通过内嵌资源来巧妙的进行读取访问。</li>
+  <li>“通常允许”进行跨域“写”操作（Cross-origin writes）。例如链接（links），重定向以及表单提交。特定少数的HTTP请求需要添加 preflight。</li>
+  <li>“通常允许“跨域资源“嵌入”（Cross-origin embedding）。之后下面会举例说明。</li>
+  <li>“通常不允许”跨域“读”操作（Cross-origin reads）。但常可以通过内嵌资源来巧妙的进行读取访问，也可以通过在服务端向HTTP Header 添加Access-Control-Allow-Origin：hosts或*
+来使此资源可以被读取（FireFox 3.6+, Safari 4+, Chrome 4+, Edge, and IE 10+ 均支持此特性）。（所以在我们使用XMLHttpRequest跨域操作时，
+浏览器是可以发出请求并获得到response的，只是限制了我们使用那些其他域的资源）</li>
 </ol>
 
 <h4 id="section-3">以下是一些可以跨域内嵌的资源示例：</h4>
@@ -88,10 +90,10 @@
 
     <footer id="footer">
     <ul class="icons">
-        <li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-        <li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+        <li><a href="https://twitter.com/worried_k" target="_blank" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
         <li><a href="https://github.com/worried-k" target="_blank" class="icon fa-github"><span class="label">Github</span></a></li>
-        <li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+        <li><a href="http://weibo.com/WorriedK" target="_blank" class="icon fa-weibo"><span class="label">weibos</span></a></li>
+        <li><a href="/about/index" class="icon fa-info-circle"><span class="label">Email</span></a></li>
     </ul>
     <ul class="copyright">
         <li>&copy; 2016</li>
