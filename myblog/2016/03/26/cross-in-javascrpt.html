@@ -16,6 +16,8 @@
     <script src=" /js/jquery.poptrox.min.js "></script>
     <script src=" /js/skel.min.js "></script>
     <script src=" /js/init.js "></script>
+    <!-- Place this tag right after the last button or just before your close body tag. -->
+    <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
     <noscript>
         <link rel="stylesheet" href=" /css/skel.css "/>
         <link rel="stylesheet" href=" /css/style.css "/>
@@ -71,8 +73,9 @@
   <li>“通常允许”进行跨域“写”操作（Cross-origin writes）。例如链接（links），重定向以及表单提交。特定少数的HTTP请求需要添加 preflight。</li>
   <li>“通常允许“跨域资源“嵌入”（Cross-origin embedding）。之后下面会举例说明。</li>
   <li>“通常不允许”跨域“读”操作（Cross-origin reads）。但常可以通过内嵌资源来巧妙的进行读取访问，也可以通过在服务端向HTTP Header 添加Access-Control-Allow-Origin：hosts或*
-来使此资源可以被读取（FireFox 3.6+, Safari 4+, Chrome 4+, Edge, and IE 10+ 均支持此特性）。（所以在我们使用XMLHttpRequest跨域操作时，
-浏览器是可以发出请求并获得到response的，只是限制了我们使用那些其他域的资源）</li>
+来使此资源可以被读取（FireFox 3.6+, Safari 4+, Chrome 4+, Edge, and IE 10+ 均支持此特性）也叫作 跨域资源共享（CORS ）。（所以在我们使用XMLHttpRequest跨域操作时，
+浏览器是可以发出请求并获得到response的，只是限制了我们使用那些其他域的资源）
+ <a href="http://caniuse.com/#feat=cors" target="_blank"><img src="/images/assets/cors.png" alt="CORS浏览器支持情况" /></a></li>
 </ol>
 
 <h4 id="section-3">以下是一些可以跨域内嵌的资源示例：</h4>
@@ -84,16 +87,21 @@
   <li>iframe</li>
 </ol>
 
+<h4 id="section-4">由于 “跨域” 是 “同源策略” 的衍生产物，初期各大浏览器的表现也不尽相同，也存在着 各种千奇百怪的 解决方案，上面是我所了解到的常用解决方案！如有问题请帮忙指正！</h4>
+
 </p>
 </section>
     </div>
 
     <footer id="footer">
     <ul class="icons">
+        <li><a class="github-button icon fa-github" href="https://github.com/worried-k/worried-k.github.io" data-count-href="/worried-k/worried-k.github.io/stargazers"
+                data-count-api="/repos/worried-k/worried-k.github.io#stargazers_count" data-count-aria-label="# stargazers on GitHub"
+                aria-label="Star worried-k/worried-k.github.io on GitHub"><span class="label">Star</span></a></li>
         <li><a href="https://twitter.com/worried_k" target="_blank" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-        <li><a href="https://github.com/worried-k" target="_blank" class="icon fa-github"><span class="label">Github</span></a></li>
         <li><a href="http://weibo.com/WorriedK" target="_blank" class="icon fa-weibo"><span class="label">weibos</span></a></li>
-        <li><a href="/about/index" class="icon fa-info-circle"><span class="label">Email</span></a></li>
+        <li><a href="/about/index" class="icon fa-info-circle"><span class="label">about</span></a></li>
+        
     </ul>
     <ul class="copyright">
         <li>&copy; 2016</li>

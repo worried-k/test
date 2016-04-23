@@ -16,6 +16,8 @@
     <script src=" /js/jquery.poptrox.min.js "></script>
     <script src=" /js/skel.min.js "></script>
     <script src=" /js/init.js "></script>
+    <!-- Place this tag right after the last button or just before your close body tag. -->
+    <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
     <noscript>
         <link rel="stylesheet" href=" /css/skel.css "/>
         <link rel="stylesheet" href=" /css/style.css "/>
@@ -49,7 +51,7 @@
 
 <h3 id="settimeoutsetinterval-1">setTimeout()和setInterval()的特点</h3>
 <ul>
-  <li>如果以0毫秒的超时来调用setTimeout(),那么指定的函数不会立刻执行。相反，会把它放到队列中，等到前面处于等待状态的事件处理程序全部执行完后，再“立刻”去调用它。
+  <li>如果以0毫秒的超时来调用setTimeout(),那么指定的函数不会立刻执行。相反，会把它放到队列中（Event Loop），等到前面处于等待状态的事件处理程序全部执行完后，再“立刻”去调用它。
 (来自 JavaScript权威指南)</li>
   <li>JavaScript属于“单线程”的“事件驱动”机制！我可以认为js有一个 事件回调函数 的执行队列，当加载完js并完成解析后，
 此前解析过中发生的事件的“回调函数”已经按照原事件触发的时间为顺序形成了一个执行队列！当js完成解析后，浏览器会去查看 js的事件执行队列，并将按照事件队列的顺序挨个执行！</li>
@@ -71,10 +73,13 @@
 
     <footer id="footer">
     <ul class="icons">
+        <li><a class="github-button icon fa-github" href="https://github.com/worried-k/worried-k.github.io" data-count-href="/worried-k/worried-k.github.io/stargazers"
+                data-count-api="/repos/worried-k/worried-k.github.io#stargazers_count" data-count-aria-label="# stargazers on GitHub"
+                aria-label="Star worried-k/worried-k.github.io on GitHub"><span class="label">Star</span></a></li>
         <li><a href="https://twitter.com/worried_k" target="_blank" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-        <li><a href="https://github.com/worried-k" target="_blank" class="icon fa-github"><span class="label">Github</span></a></li>
         <li><a href="http://weibo.com/WorriedK" target="_blank" class="icon fa-weibo"><span class="label">weibos</span></a></li>
-        <li><a href="/about/index" class="icon fa-info-circle"><span class="label">Email</span></a></li>
+        <li><a href="/about/index" class="icon fa-info-circle"><span class="label">about</span></a></li>
+        
     </ul>
     <ul class="copyright">
         <li>&copy; 2016</li>
