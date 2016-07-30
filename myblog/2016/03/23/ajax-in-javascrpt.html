@@ -11,19 +11,21 @@
     <meta name="description" content="AJAX即“Asynchronous Javascript And XML”！它类似于DHTML或LAMP，AJAX不是指一种单一的技术，而是有机地利用了一系列相关的技术。">
 
     <link rel="stylesheet" href=" /css/main.css ">
+    <link rel="stylesheet" href=" /css/shCoreDefault.css ">
     <!--[if lte IE 8]><script src=" /css/ie/html5shiv.js "></script><![endif]-->
     <script src=" /js/jquery.min.js "></script>
-    <script src=" /js/jquery.poptrox.min.js "></script>
     <script src=" /js/skel.min.js "></script>
     <script src=" /js/init.js "></script>
+    <script src=" /js/shCore.js "></script>
+    <script src=" /js/shBrushJScript.js "></script>
     <!-- Place this tag right after the last button or just before your close body tag. -->
     <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
     <noscript>
         <link rel="stylesheet" href=" /css/skel.css "/>
         <link rel="stylesheet" href=" /css/style.css "/>
-        <link rel="stylesheet" href=" /css/style-xlarge.css "/>
     </noscript>
     <!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css"/><![endif]-->
+    <script type="text/javascript">SyntaxHighlighter.all();</script>
 </head>
 
   <body id="top">
@@ -62,155 +64,157 @@
 new Image()的方式创建一个”img”，并为其src属性设置带有查询字符串信息的URL，实现客户端发送数据到服务器，但在客户端却无法轻易的从服务器
 响应的图片中提取出信息！所以此技术常用于前端log记录！(这种类型的图片也称之为“网页信标”)</li>
 </ul>
-
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">var</span> <span class="n">unique</span> <span class="o">=</span> <span class="p">(</span><span class="n">function</span> <span class="p">()</span> <span class="p">{</span> 
-    <span class="sr">//</span><span class="err">此方法也可用</span><span class="no">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span><span class="err">代替</span> 
-     <span class="n">var</span> <span class="n">time</span> <span class="o">=</span> <span class="p">(</span><span class="kp">new</span> <span class="no">Date</span><span class="p">()).</span><span class="nf">getTime</span><span class="p">()</span> <span class="o">+</span> <span class="s2">"-"</span><span class="p">,</span>
-         <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>  
-     <span class="k">return</span> <span class="n">function</span> <span class="p">()</span> <span class="p">{</span>  
-        <span class="k">return</span> <span class="n">time</span> <span class="o">+</span> <span class="p">(</span><span class="n">i</span><span class="o">++</span><span class="p">);</span>  
-     <span class="p">}</span>
- <span class="p">})();</span>  
+<pre class="brush:js;">
+var unique = (function () { 
+    //此方法也可用Math.random()代替 
+     var time = (new Date()).getTime() + "-",
+         i = 1;  
+     return function () {  
+        return time + (i++);  
+     }
+ })();  
    
-<span class="n">var</span> <span class="n">imgLog</span> <span class="o">=</span> <span class="n">function</span> <span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">typeof</span> <span class="n">url</span> <span class="o">!==</span> <span class="s2">"string"</span> <span class="o">||</span> <span class="o">!</span><span class="n">url</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span><span class="p">;</span>
-    <span class="p">}</span>
-    <span class="n">var</span> <span class="n">uid</span> <span class="o">=</span> <span class="n">unique</span><span class="p">();</span>
-    <span class="n">var</span> <span class="n">img_id</span> <span class="o">=</span> <span class="s2">"_img_"</span> <span class="o">+</span> <span class="n">uid</span><span class="p">;</span>
-    <span class="n">var</span> <span class="n">img</span> <span class="o">=</span> <span class="kp">new</span> <span class="no">Image</span><span class="p">();</span>
-    <span class="n">img</span><span class="p">.</span><span class="nf">hidden</span> <span class="o">=</span> <span class="kp">true</span><span class="p">;</span>
-    <span class="n">window</span><span class="p">[</span><span class="n">img_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">img</span><span class="p">;</span>
-    <span class="n">img</span><span class="p">.</span><span class="nf">onload</span> <span class="o">=</span> <span class="n">img</span><span class="p">.</span><span class="nf">onerror</span> <span class="o">=</span> <span class="n">function</span> <span class="p">()</span> <span class="p">{</span><span class="sr">//</span><span class="err">销毁一些对象</span>  
-        <span class="n">img</span><span class="p">.</span><span class="nf">onload</span> <span class="o">=</span> <span class="n">img</span><span class="p">.</span><span class="nf">onerror</span> <span class="o">=</span> <span class="n">null</span><span class="p">;</span>  
-        <span class="n">img</span> <span class="o">=</span> <span class="n">undefined</span><span class="p">;</span>  
-        <span class="n">delete</span> <span class="n">window</span><span class="p">[</span><span class="n">img_id</span><span class="p">];</span>  
-    <span class="p">}</span>
-    <span class="n">url</span> <span class="o">+=</span> <span class="n">url</span><span class="p">.</span><span class="nf">indexOf</span><span class="p">(</span><span class="s2">"?"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"-1"</span> <span class="p">?</span> <span class="s1">'?_uid='</span> <span class="o">+</span> <span class="n">uid</span> <span class="p">:</span> <span class="s1">'&amp;_uid='</span> <span class="o">+</span> <span class="n">uid</span><span class="p">;</span>
-    <span class="n">img</span><span class="p">.</span><span class="nf">src</span> <span class="o">=</span> <span class="n">url</span><span class="p">;</span>  
- <span class="p">};</span></code></pre></figure>
-
+var imgLog = function (url) {
+    if (typeof url !== "string" || !url) {
+        return;
+    }
+    var uid = unique();
+    var img_id = "_img_" + uid;
+    var img = new Image();
+    img.hidden = true;
+    window[img_id] = img;
+    img.onload = img.onerror = function () {//销毁一些对象  
+        img.onload = img.onerror = null;  
+        img = undefined;  
+        delete window[img_id];  
+    }
+    url += url.indexOf("?") == "-1" ? '?_uid=' + uid : '&amp;_uid=' + uid;
+    img.src = url;  
+ };
+</pre>
 <ul>
   <li>“iframe”则相比“img”元素强大些，也能通过设置它的src属性从服务端获取HTML文档。可以直接显示给用户，也可隐藏起来通过使用脚本遍历获取
 相关数据！但其受制于“同源策略”。</li>
   <li>“script”元素也能通过设置它的src属性发起携带查询字符串参数的HTTP GET请求，且并不受制于“同源策略”！通常服务器会使用JSON格式将数据
 返回给客户端，JavaScript解析器能自动将其“解码”，此种AJAX传输协议也叫做“JSONP”。</li>
 </ul>
+<pre class="brush:js;">
+function success(json) {
+    //成功回调
+}
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">function</span> <span class="n">success</span><span class="p">(</span><span class="n">json</span><span class="p">)</span> <span class="p">{</span>
-    <span class="sr">//</span><span class="err">成功回调</span>
-<span class="p">}</span>
+//创建 script 标签并加入到页面中
+var callbackName = ('jsonp_' + Math.random()).replace(".", "");
+var head = document.getElementsByTagName('head')[0];
+var script = document.createElement('script');
+head.appendChild(script);
+var timer = setTimeout(function() {
+    window[callbackName] = undefined;
+    //如果20s后还未能执行jsonp回调，则认为失败！...
+}, 20000);
 
-<span class="sr">//</span><span class="err">创建</span> <span class="n">script</span> <span class="err">标签并加入到页面中</span>
-<span class="n">var</span> <span class="n">callbackName</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'jsonp_'</span> <span class="o">+</span> <span class="no">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">()).</span><span class="nf">replace</span><span class="p">(</span><span class="s2">"."</span><span class="p">,</span> <span class="s2">""</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">head</span> <span class="o">=</span> <span class="n">document</span><span class="p">.</span><span class="nf">getElementsByTagName</span><span class="p">(</span><span class="s1">'head'</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
-<span class="n">var</span> <span class="n">script</span> <span class="o">=</span> <span class="n">document</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="s1">'script'</span><span class="p">);</span>
-<span class="n">head</span><span class="p">.</span><span class="nf">appendChild</span><span class="p">(</span><span class="n">script</span><span class="p">);</span>
-<span class="n">var</span> <span class="n">timer</span> <span class="o">=</span> <span class="n">setTimeout</span><span class="p">(</span><span class="n">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">window</span><span class="p">[</span><span class="n">callbackName</span><span class="p">]</span> <span class="o">=</span> <span class="n">undefined</span><span class="p">;</span>
-    <span class="sr">//</span><span class="err">如果</span><span class="mi">20</span><span class="n">s</span><span class="err">后还未能执行</span><span class="n">jsonp</span><span class="err">回调，则认为失败！</span><span class="p">.</span><span class="nf">.</span><span class="o">.</span>
-<span class="p">},</span> <span class="mi">20000</span><span class="p">);</span>
-
-<span class="sr">//</span><span class="err">创建</span><span class="n">jsonp</span><span class="err">回调函数</span>
-<span class="sr">//</span><span class="n">response</span><span class="err">为</span><span class="n">jsonp_</span><span class="err">随机数</span><span class="p">({</span><span class="no">JSON</span><span class="err">数据</span><span class="p">})</span>
-<span class="n">window</span><span class="p">[</span><span class="n">callbackName</span><span class="p">]</span> <span class="o">=</span> <span class="n">function</span> <span class="p">(</span><span class="n">json</span><span class="p">)</span> <span class="p">{</span>
-    <span class="n">window</span><span class="p">.</span><span class="nf">clearTimeout</span><span class="p">(</span><span class="n">timer</span><span class="p">);</span>
-    <span class="n">head</span><span class="p">.</span><span class="nf">removeChild</span><span class="p">(</span><span class="n">script</span><span class="p">);</span>
-    <span class="n">window</span><span class="p">[</span><span class="n">callbackName</span><span class="p">]</span> <span class="o">=</span> <span class="n">undefined</span><span class="p">;</span>
-    <span class="sr">//</span><span class="err">执行成功方法</span>
-    <span class="n">success</span><span class="p">(</span><span class="n">json</span><span class="p">);</span>
-<span class="p">};</span>
-<span class="sr">//</span><span class="err">发送请求</span>
-<span class="n">script</span><span class="p">.</span><span class="nf">src</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span></code></pre></figure>
-
+//创建jsonp回调函数
+//response为jsonp_随机数({JSON数据})
+window[callbackName] = function (json) {
+    window.clearTimeout(timer);
+    head.removeChild(script);
+    window[callbackName] = undefined;
+    //执行成功方法
+    success(json);
+};
+//发送请求
+script.src = "";
+</pre>
 <ul>
   <li>“XMLHttpRequest”更简单的异步交互技术！它定义了用脚本操作HTTP的API，并且所有的浏览器都支持XMLHttpRequest对象。虽然名字中含有XML
 但它并没有限定只能使用XML文档，它能获取到任何类型的文本文档！</li>
 </ul>
+<pre class="brush:js;">
+function createXHR(){
+    if(typeof XMLHttpRequest != "undefined"){ // 非IE6浏览器
+        return new XMLHttpRequest();
+    }else if(typeof ActiveXObject != "undefined"){   // IE6浏览器
+        var version = [
+            "MSXML2.XMLHttp.6.0",
+            "MSXML2.XMLHttp.3.0",
+            "Microsoft.XMLHTTP",
+        ];
+        for(var i = 0; i &lt; version.length; i++){
+            try{
+                return new ActiveXObject(version[i]);
+            }catch(e){
+                //异常处理
+            }
+        }
+    }else{
+        throw new Error("您的系统或浏览器不支持XHR对象！");
+    }
+}
+// 封装ajax
+function create_ajax(obj){
+    obj = obj || {};
+    var xhr = createXHR();
+    obj.url = obj.url + "?rand=" + Math.random(); // 防止缓存
+    if(obj.method === "get"){      // 判断使用的是否是get方式发送
+        obj.url += obj.url.indexOf("?") == "-1" ? "?" + obj.data : "&amp;" + obj.data;
+    }
+    
+    // 异步的时候需要触发onreadystatechange事件，同步的省略...
+    xhr.onreadystatechange = function(){
+        // 执行完成
+        if(xhr.readyState === 4){
+            callBack();
+        }
+    }
+    //open方法的3个参数(HTTP方法或动作, URL, 是否异步)
+    xhr.open(obj.method, obj.url, true);
+    
+    //设置http头，但大多数的http头信息是无法改变的！
+    //application/x-www-form-urlencoded 数据被编码为名称/值对 最常见的格式
+    //multipart/form-data 使用表单上传文件时使用
+    //application/json 用来告诉服务端消息主体是序列化后的 JSON 字符串
+    //text/xml 使用XML作为编码方式的远程调用
+    //text/plain 以纯文本形式进行编码
+    
+    if (obj.method === "post") {
+        xhr.setRequestHeader("Content-Type","application/json");
+        xhr.send(obj.data);
+    } else {
+        xhr.send(null);
+    }
+    
+    //返回数据
+    //同步时，直接调用
+    function callBack() {
+        // 判断是否返回正确
+        if (xhr.status === 200) {
+            if (typeof obj.success === "function") {
+              obj.success(xhr.response);
+            }
+        } else {
+            if (typeof obj.error === "function") {
+                obj.error(xhr.response);
+            }
+        }
+        //xhr.status === 0请求失败
+        //xhr.statusText === "abort" 请求被cancle
+        //xhr.statusText === "timeout" 请求超时 
+    }
+}
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="n">function</span> <span class="n">createXHR</span><span class="p">(){</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">typeof</span> <span class="no">XMLHttpRequest</span> <span class="o">!=</span> <span class="s2">"undefined"</span><span class="p">){</span> <span class="sr">//</span> <span class="err">非</span><span class="no">IE6</span><span class="err">浏览器</span>
-        <span class="k">return</span> <span class="kp">new</span> <span class="no">XMLHttpRequest</span><span class="p">();</span>
-    <span class="p">}</span><span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="n">typeof</span> <span class="no">ActiveXObject</span> <span class="o">!=</span> <span class="s2">"undefined"</span><span class="p">){</span>   <span class="sr">//</span> <span class="no">IE6</span><span class="err">浏览器</span>
-        <span class="n">var</span> <span class="n">version</span> <span class="o">=</span> <span class="p">[</span>
-            <span class="s2">"MSXML2.XMLHttp.6.0"</span><span class="p">,</span>
-            <span class="s2">"MSXML2.XMLHttp.3.0"</span><span class="p">,</span>
-            <span class="s2">"Microsoft.XMLHTTP"</span><span class="p">,</span>
-        <span class="p">];</span>
-        <span class="k">for</span><span class="p">(</span><span class="n">var</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">version</span><span class="p">.</span><span class="nf">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
-            <span class="n">try</span><span class="p">{</span>
-                <span class="k">return</span> <span class="kp">new</span> <span class="no">ActiveXObject</span><span class="p">(</span><span class="n">version</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
-            <span class="p">}</span><span class="kp">catch</span><span class="p">(</span><span class="n">e</span><span class="p">){</span>
-                <span class="sr">//</span><span class="err">异常处理</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
-        <span class="kp">throw</span> <span class="kp">new</span> <span class="no">Error</span><span class="p">(</span><span class="s2">"您的系统或浏览器不支持XHR对象！"</span><span class="p">);</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="sr">//</span> <span class="err">封装</span><span class="n">ajax</span>
-<span class="n">function</span> <span class="n">create_ajax</span><span class="p">(</span><span class="n">obj</span><span class="p">){</span>
-    <span class="n">obj</span> <span class="o">=</span> <span class="n">obj</span> <span class="o">||</span> <span class="p">{};</span>
-    <span class="n">var</span> <span class="n">xhr</span> <span class="o">=</span> <span class="n">createXHR</span><span class="p">();</span>
-    <span class="n">obj</span><span class="p">.</span><span class="nf">url</span> <span class="o">=</span> <span class="n">obj</span><span class="p">.</span><span class="nf">url</span> <span class="o">+</span> <span class="s2">"?rand="</span> <span class="o">+</span> <span class="no">Math</span><span class="p">.</span><span class="nf">random</span><span class="p">();</span> <span class="sr">//</span> <span class="err">防止缓存</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">obj</span><span class="p">.</span><span class="nf">method</span> <span class="o">===</span> <span class="s2">"get"</span><span class="p">){</span>      <span class="sr">//</span> <span class="err">判断使用的是否是</span><span class="n">get</span><span class="err">方式发送</span>
-        <span class="n">obj</span><span class="p">.</span><span class="nf">url</span> <span class="o">+=</span> <span class="n">obj</span><span class="p">.</span><span class="nf">url</span><span class="p">.</span><span class="nf">indexOf</span><span class="p">(</span><span class="s2">"?"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"-1"</span> <span class="p">?</span> <span class="s2">"?"</span> <span class="o">+</span> <span class="n">obj</span><span class="p">.</span><span class="nf">data</span> <span class="p">:</span> <span class="s2">"&amp;"</span> <span class="o">+</span> <span class="n">obj</span><span class="p">.</span><span class="nf">data</span><span class="p">;</span>
-    <span class="p">}</span>
-    
-    <span class="sr">//</span> <span class="err">异步的时候需要触发</span><span class="n">onreadystatechange</span><span class="err">事件，同步的省略</span><span class="p">.</span><span class="nf">.</span><span class="p">.</span>
-    <span class="nf">xhr</span><span class="p">.</span><span class="nf">onreadystatechange</span> <span class="o">=</span> <span class="n">function</span><span class="p">(){</span>
-        <span class="sr">//</span> <span class="err">执行完成</span>
-        <span class="k">if</span><span class="p">(</span><span class="n">xhr</span><span class="p">.</span><span class="nf">readyState</span> <span class="o">===</span> <span class="mi">4</span><span class="p">){</span>
-            <span class="n">callBack</span><span class="p">();</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="sr">//o</span><span class="n">pen</span><span class="err">方法的</span><span class="mi">3</span><span class="err">个参数</span><span class="p">(</span><span class="no">HTTP</span><span class="err">方法或动作</span><span class="p">,</span> <span class="no">URL</span><span class="p">,</span> <span class="err">是否异步</span><span class="p">)</span>
-    <span class="n">xhr</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="n">obj</span><span class="p">.</span><span class="nf">method</span><span class="p">,</span> <span class="n">obj</span><span class="p">.</span><span class="nf">url</span><span class="p">,</span> <span class="kp">true</span><span class="p">);</span>
-    
-    <span class="sr">//</span><span class="err">设置</span><span class="n">http</span><span class="err">头，但大多数的</span><span class="n">http</span><span class="err">头信息是无法改变的！</span>
-    <span class="sr">//</span><span class="n">application</span><span class="o">/</span><span class="n">x</span><span class="o">-</span><span class="n">www</span><span class="o">-</span><span class="n">form</span><span class="o">-</span><span class="n">urlencoded</span> <span class="err">数据被编码为名称</span><span class="o">/</span><span class="err">值对</span> <span class="err">最常见的格式</span>
-    <span class="sr">//mu</span><span class="n">ltipart</span><span class="o">/</span><span class="n">form</span><span class="o">-</span><span class="n">data</span> <span class="err">使用表单上传文件时使用</span>
-    <span class="sr">//</span><span class="n">application</span><span class="o">/</span><span class="n">json</span> <span class="err">用来告诉服务端消息主体是序列化后的</span> <span class="no">JSON</span> <span class="err">字符串</span>
-    <span class="sr">//</span><span class="n">text</span><span class="o">/</span><span class="n">xml</span> <span class="err">使用</span><span class="no">XML</span><span class="err">作为编码方式的远程调用</span>
-    <span class="sr">//</span><span class="n">text</span><span class="o">/</span><span class="n">plain</span> <span class="err">以纯文本形式进行编码</span>
-    
-    <span class="k">if</span> <span class="p">(</span><span class="n">obj</span><span class="p">.</span><span class="nf">method</span> <span class="o">===</span> <span class="s2">"post"</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">xhr</span><span class="p">.</span><span class="nf">setRequestHeader</span><span class="p">(</span><span class="s2">"Content-Type"</span><span class="p">,</span><span class="s2">"application/json"</span><span class="p">);</span>
-        <span class="n">xhr</span><span class="p">.</span><span class="nf">send</span><span class="p">(</span><span class="n">obj</span><span class="p">.</span><span class="nf">data</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="n">xhr</span><span class="p">.</span><span class="nf">send</span><span class="p">(</span><span class="n">null</span><span class="p">);</span>
-    <span class="p">}</span>
-    
-    <span class="sr">//</span><span class="err">返回数据</span>
-    <span class="sr">//</span><span class="err">同步时，直接调用</span>
-    <span class="n">function</span> <span class="n">callBack</span><span class="p">()</span> <span class="p">{</span>
-        <span class="sr">//</span> <span class="err">判断是否返回正确</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">xhr</span><span class="p">.</span><span class="nf">status</span> <span class="o">===</span> <span class="mi">200</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">typeof</span> <span class="n">obj</span><span class="p">.</span><span class="nf">success</span> <span class="o">===</span> <span class="s2">"function"</span><span class="p">)</span> <span class="p">{</span>
-              <span class="n">obj</span><span class="p">.</span><span class="nf">success</span><span class="p">(</span><span class="n">xhr</span><span class="p">.</span><span class="nf">response</span><span class="p">);</span>
-            <span class="p">}</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">typeof</span> <span class="n">obj</span><span class="p">.</span><span class="nf">error</span> <span class="o">===</span> <span class="s2">"function"</span><span class="p">)</span> <span class="p">{</span>
-                <span class="n">obj</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="n">xhr</span><span class="p">.</span><span class="nf">response</span><span class="p">);</span>
-            <span class="p">}</span>
-        <span class="p">}</span>
-        <span class="sr">//x</span><span class="n">hr</span><span class="p">.</span><span class="nf">status</span> <span class="o">===</span> <span class="mi">0</span><span class="err">请求失败</span>
-        <span class="sr">//x</span><span class="n">hr</span><span class="p">.</span><span class="nf">statusText</span> <span class="o">===</span> <span class="s2">"abort"</span> <span class="err">请求被</span><span class="n">cancle</span>
-        <span class="sr">//x</span><span class="n">hr</span><span class="p">.</span><span class="nf">statusText</span> <span class="o">===</span> <span class="s2">"timeout"</span> <span class="err">请求超时</span> 
-    <span class="p">}</span>
-<span class="p">}</span>
+create_ajax({
+    "method" : "get",
+    "url" : "目的URI",
+    "data" : '',
+    "success" : function(data){
+        //成功处理动作
+    },
+    "error" : function(data){
+        //失败处理动作
+    }
+});
 
-<span class="n">create_ajax</span><span class="p">({</span>
-    <span class="s2">"method"</span> <span class="p">:</span> <span class="s2">"get"</span><span class="p">,</span>
-    <span class="s2">"url"</span> <span class="p">:</span> <span class="s2">"目的URI"</span><span class="p">,</span>
-    <span class="s2">"data"</span> <span class="p">:</span> <span class="s1">''</span><span class="p">,</span>
-    <span class="s2">"success"</span> <span class="p">:</span> <span class="n">function</span><span class="p">(</span><span class="n">data</span><span class="p">){</span>
-        <span class="sr">//</span><span class="err">成功处理动作</span>
-    <span class="p">},</span>
-    <span class="s2">"error"</span> <span class="p">:</span> <span class="n">function</span><span class="p">(</span><span class="n">data</span><span class="p">){</span>
-        <span class="sr">//</span><span class="err">失败处理动作</span>
-    <span class="p">}</span>
-<span class="p">});</span></code></pre></figure>
+</pre>
 </p>
 </section>
     </div>

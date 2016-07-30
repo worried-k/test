@@ -11,19 +11,21 @@
     <meta name="description" content="超文本传输协议（英文：HyperText Transfer Protocol，缩写：HTTP）是互联网上应用最为广泛的一种网络协议，本文作为常用知识的笔记">
 
     <link rel="stylesheet" href=" /css/main.css ">
+    <link rel="stylesheet" href=" /css/shCoreDefault.css ">
     <!--[if lte IE 8]><script src=" /css/ie/html5shiv.js "></script><![endif]-->
     <script src=" /js/jquery.min.js "></script>
-    <script src=" /js/jquery.poptrox.min.js "></script>
     <script src=" /js/skel.min.js "></script>
     <script src=" /js/init.js "></script>
+    <script src=" /js/shCore.js "></script>
+    <script src=" /js/shBrushJScript.js "></script>
     <!-- Place this tag right after the last button or just before your close body tag. -->
     <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
     <noscript>
         <link rel="stylesheet" href=" /css/skel.css "/>
         <link rel="stylesheet" href=" /css/style.css "/>
-        <link rel="stylesheet" href=" /css/style-xlarge.css "/>
     </noscript>
     <!--[if lte IE 8]><link rel="stylesheet" href="/css/ie/v8.css"/><![endif]-->
+    <script type="text/javascript">SyntaxHighlighter.all();</script>
 </head>
 
   <body id="top">
@@ -353,6 +355,13 @@
 <h5 id="a-hrefhttpsdevelopermozillaorgzh-cndocswebhtmlelementmeta-targetblankhtmla"><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/meta" target="_blank">关于响应头信息在HTML中的实现</a></h5>
 <ul>
   <li>meta 标签的 http-equiv 属性</li>
+</ul>
+
+<h5 id="jshttp">关于js可以干预的HTTP请求首部</h5>
+<ul>
+  <li>通过XMLHttpRequest.setRequestHeader()  这个Web API 接口，js可以设置的HTTP请求首部。</li>
+  <li>谷歌浏览器是支持setRequestHeader的修改的，但是大多数的标准首部是无法修改的，Content-type例外。</li>
+  <li>也可以构造任意一个非标准的字段（注意大小写），通常自定义的字段都建议X-开头。</li>
 </ul>
 </p>
 </section>
