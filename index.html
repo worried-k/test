@@ -1,0 +1,11 @@
+---
+layout: default
+---
+{% for post in site.posts limit:100 %}
+<section>
+    <header>
+        <p>{{ post.date | date: "%b %-d, %Y" }}&nbsp;&nbsp;&nbsp;<a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></p>
+        <blockquote>{{post.excerpt}}</blockquote>
+    </header>
+</section>
+{% endfor %}
