@@ -21,3 +21,8 @@ github_username:  worried-k
 markdown: kramdown
 
 #destination: "G:/worried-k.github.io/"
+
+# Gems
+gems: [jekyll-paginate]
+
+paginate: 5

@@ -735,3 +735,26 @@ pre> code {
 .highlight .il {
     color: #099;
 }
+
+/*分页*/
+ul.page_pagination {
+    width: 100%;
+    overflow: hidden;
+    height: 45px;
+    list-style: none outside;
+    margin: 0px;
+    padding: 5px 0 0 0;
+}
+.page_pagination li a {
+    color: #888;
+    padding: 8px 12px;
+    margin: 2px 2px;
+    border: 1px solid #eee;
+}
+.page_pagination li.selected a {
+    background: black;
+    color: white;
+}
+.page_pagination li {
+    display: inline;
+}
