@@ -38,6 +38,7 @@ console.log( undefined == NaN) // false
 console.log( 0 == '' )  // true
 console.log( 0 == NaN ) // false
 </pre>
+
 #### “==” 与 “===”
 * 相同点：两个运算符允许任意类型的操作数，都返回boolean类型的true或false
 * “==”称之为相等运算符（equality operator）

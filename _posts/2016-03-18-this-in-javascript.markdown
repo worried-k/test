@@ -74,4 +74,4 @@ o.demo.apply();//1,apply()的参数为空时，默认调用全局对象
 o.demo.apply(o);//2
 </pre>
 
-### 6.如果this在HTML的标签中被当做事件绑定回调函数的参数传入 ，此时this指向触发事件的对象----[object HTMLInputElement]
+### 6.如果this在HTML的标签中被当做事件绑定回调函数的参数传入 ，此时this指向触发事件的对象,如：[object HTMLInputElement]

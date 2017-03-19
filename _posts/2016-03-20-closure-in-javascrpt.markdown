@@ -28,6 +28,7 @@ var tools_add = demo();//返回add函数
 var new_num = tools_add();//返回一个新的数
 console.log(local_num);//undefined，函数作用域
 </pre>
+
 #### 内部函数add的作用域链（在解析时就决定了这个作用域链）为：
 1. —add函数的私有变量对象(包含变量b和c)
 2. ——demo函数的私有变量对象(包含变量a和local_num和函数add)
