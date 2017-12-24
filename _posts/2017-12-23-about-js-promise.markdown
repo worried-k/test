@@ -78,3 +78,11 @@ readdir('1').then(function (path) {
 6. Promise.reject(reason)方法也会返回一个新的 Promise 实例，该实例的状态为rejected，并原封不动地将reject的理由，变成后续方法的参数
 7. Promise.done() 总是处于回调链的尾端，保证抛出任何可能出现的错误
 8. Promise.finally()不管 Promise 对象最后状态如何，都会执行的操作.并接受一个普通的回调函数作为参数
+
+##### 支持情况
+
+* Node.js added native promise in stable version 0.12
+
+| 浏览器 | Chrome | Edge | Firefox | 	Internet Explorer | Opera | Safari |
+| ------| ------ | ------ | ------ | ------ | ------ | ------ |
+| 支持情况 | 32 | Yes | 29 | No | 19 | 8 |
