@@ -62,26 +62,43 @@ readdir('1').then(function (path) {
 // 逻辑清晰清晰了很多不是吗？
 </pre>
 
-##### Promise对象的特点
+#### Promise对象的特点
 1. 对象的状态不会受到外界的影响。Promise对象代表一个异步操作，共有三种状态：pending（进行中）、fulfilled（已成功）和rejected（已失败）
 2. 一旦状态改变，就不会再变，任何时候都可以得到这个结果
 3. 无法取消Promise，一旦新建它就会立即执行，无法中途取消
 4. 如果不设置回调函数，Promise内部抛出的错误，不会反应到外部
 5. 当处于pending状态时，无法得知目前进展到哪一个阶段（刚刚开始还是即将完成）
 
-##### Promise的常用方法概述
-1. Promise.then()方法返回的是一个新的Promise实例（注意，不是原来那个Promise实例）
-2. Promise.catch()方法是.then(null, rejection)的别名，用于指定发生错误时的回调函数
-3. Promise.all()方法用于将多个 Promise 实例，包装成一个新的 Promise 实例,只有s所有的状态都变成fulfilled或rejected时才会执行响应的回调函数
-4. Promise.race()方法同样是将多个 Promise 实例，包装成一个新的 Promise 实例，只要其中有一个Promise对象状态发生改变，那个率先改变的 Promise 实例的返回值，就传递给Promise.race()的回调函数
-5. Promise.resolve() 有时需要将现有对象转为 Promise 对象。如果参数是一个原始值或无参数，则Promise.resolve方法返回一个新的 Promise 对象，状态为resolved。如果参数是个对象，方法会将这个对象转为 Promise 对象，然后就立即执行这个对象的then方法，状态为resolved。注意：回调函数会在本轮“事件循环”结束时执行
-6. Promise.reject(reason)方法也会返回一个新的 Promise 实例，该实例的状态为rejected，并原封不动地将reject的理由，变成后续方法的参数
-7. Promise.done() 总是处于回调链的尾端，保证抛出任何可能出现的错误
-8. Promise.finally()不管 Promise 对象最后状态如何，都会执行的操作.并接受一个普通的回调函数作为参数
+#### Promise的常用方法概述
 
-##### 支持情况
+1. Promise.prototype.then() 方法返回的是一个新的Promise实例
+    * 注意，不是原来那个Promise实例
+    * 参数为两个回调函数：  
+      ① resolved状态的回调函数  
+      ② rejected状态的回调函数
+    * 建议：此方法应仅处理resolved回调函数
 
-* Node.js added native promise in stable version 0.12
+2. Promise.prototype.catch() 方法是.then(null, rejection)的别名，用于指定发生错误时的回调函数
+
+3. Promise.all() 方法用于将多个 Promise 实例，包装成一个新的 Promise 实例,只有s所有的状态都变成fulfilled或rejected时才会执行相应的回调函数
+
+4. Promise.race() 方法同样是将多个 Promise 实例，包装成一个新的 Promise 实例
+    + 注意：只要其中有一个Promise对象状态发生改变，那个率先改变的 Promise 实例的返回值，就传递给Promise.race()的回调函数
+
+5. Promise.resolve() 有时需要将现有对象转为 Promise 对象
+    + 如果参数是一个原始值或无参数，则Promise.resolve方法返回一个新的 Promise 对象，状态为resolved。
+    + 如果参数是个对象，方法会将这个对象转为 Promise 对象，然后就立即执行这个对象的then方法，状态为resolved。
+    + 注意：回调函数会在**本轮“事件循环”结束时**执行
+
+6. Promise.reject(reason) 方法也会返回一个新的 Promise 实例，该实例的状态为rejected，并原封不动地将reject的理由，变成后续方法的参数
+
+7. Promise.done() 总是处于回调链的尾端(**无参数**)，保证抛出任何可能出现的错误，并向全局抛出
+
+8. Promise.finally() 不管 Promise 对象最后状态如何，都会执行的操作.并接受一个普通的回调函数作为参数
+
+#### 支持情况
+
+  **Node.js added native promise in stable version 0.12**  
 
 | 浏览器 | Chrome | Edge | Firefox | 	Internet Explorer | Opera | Safari |
 | ------| ------ | ------ | ------ | ------ | ------ | ------ |
