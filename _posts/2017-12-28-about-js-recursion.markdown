@@ -81,11 +81,11 @@ console.log(sum)  // 15
 3. 将上面的递归可以理解成，解释器会将递归函数解释成这样的方式，而后去执行
 <pre class="brush:js;">
 // var sum = recsum(5) 会被解释成下面的代码
-var recsum_1 = 1 > 1 ? *** : 1// 1的累加 = 1
-var recsum_2 = 2 + recsum_1   // 2的累加 = 2 + 1的累加
-var recsum_3 = 3 + recsum_2   // 3的累加 = 3 + 2的累加
-var recsum_4 = 4 + recsum_3   // 4的累加 = 4 + 3的累加
-var recsum_5 = 5 + recsum_4   // 5的累加 = 5 + 4的累加
+var recsum_1 = 1 > 1 ? recsum(1) : 1// 1的累加 = 1
+var recsum_2 = 2 + recsum_1         // 2的累加 = 2 + 1的累加
+var recsum_3 = 3 + recsum_2         // 3的累加 = 3 + 2的累加
+var recsum_4 = 4 + recsum_3         // 4的累加 = 4 + 3的累加
+var recsum_5 = 5 + recsum_4         // 5的累加 = 5 + 4的累加
 
 var sum = recsum_5
 </pre>
@@ -93,7 +93,7 @@ var sum = recsum_5
 ##### 去掉return关键字的执行过程(类等同调用栈的过程)
 <pre class="brush:js;">
 // var sum = recsum(5) 会被解释成下面的代码
-1 > 1 ? *** : 1
+1 > 1 ? recsum(1) : 1
 var recsum_1 = undefined
 
 2 + recsum_1
