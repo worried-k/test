@@ -9,7 +9,7 @@ categories: myblog
 
 ### setTimeout()和setInterval()相同点
 1. 都是客户端JavaScript中的全局对象Window对象下的方法。
-2. 它们在执行后都会返回一个值，这个值可以传递给clearTimout()用于取消这个函数的执行。
+2. 它们在执行后都会返回一个值，这个值用于给clearTimout()等方法来取消回调函数的执行。
 3. 由于历史原因，它们的第一个参数都可以作为字符串传入。
 4. 第二个参数的单位都为 毫秒。
 

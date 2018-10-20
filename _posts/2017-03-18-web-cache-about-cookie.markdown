@@ -125,4 +125,8 @@ categories: myblog
 * 关于"client-only" 的数据不要利用Cookie存储，这些Cookie也会上传到服务器，会增加服务器的负担、浪费带宽
 * 需要对服务端的任何敏感操作都应该被确认，利用cookie存储到浏览器的token并不是那么可靠
 * 只有name、domain、path都相同时才是同一个cookie
-
+* Chrome 52 开始，不安全的站点（http:）无法使用Cookie的 Secure 标记
+* Domain参数可以设置到父域名以及自身，但不能设置其它域名，包括子域名
+* Domain不能显示的指定cookie的域名为ip地址，只用在domain不设置且文档的domain为ip时，domain才会显示为ip（<a href="https://www.perlmonks.org/?node_id=128608">来源文章</a>）
+* 不同子域名之间不能相互操作cookie，主域名也不能操作子域名的cookie
+* 区分Domain 与 Origin 的区别,等同于：document.domain 与 document.origin 的区别 == “localhost” 与 "http://localhost:8080” 的区别
