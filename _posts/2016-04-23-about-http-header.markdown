@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "整理HTTP相关"
+title:  "HTTP相关整理笔记"
 date:   2016-04-23 18:10:00 +0800
 categories: myblog
 ---
@@ -282,6 +282,10 @@ categories: myblog
 ##### Access-Control-Allow-Origin
 * 跨域资源共享(Cross-Origin Resource Sharing)时,服务器端需要返回的资源需要有一个 Access-Control-Allow-Origin 头信息
 * Access-Control-Allow-Origin: 参数指定一个允许向该服务器提交请求的URI.对于一个不带有credentials的请求,可以指定为'*',表示允许来自所有域的请求.
+
+##### Content-Security-Policy
+* 内容安全策略 即 CSP，用来通知客户端 哪些规则的外部资源可以加载、执行
+* 启用后不符合CSP的外部资源会被阻止加载，并在控制台报错 
 
 ##### <a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/meta" target="_blank">关于响应头信息在HTML中的实现</a>
 * meta 标签的 http-equiv 属性
