@@ -53,29 +53,30 @@ var imgLog = function (url) {
 * "iframe"则相比“img”元素强大些，也能通过设置它的src属性从服务端获取HTML文档。可以直接显示给用户，也可隐藏起来通过使用脚本遍历获取
 相关数据！但其受制于“同源策略”。
 * "script"元素也能通过设置它的src属性发起携带查询字符串参数的HTTP GET请求，且并不受制于“同源策略”！通常服务器会使用JSON格式将数据
-返回给客户端，JavaScript解析器能自动将其“解码”，此种AJAX传输协议也叫做“JSONP”。
+返回给客户端，JavaScript解析器能自动将其“解码”（ps：返回一段以**前端与服务器约定好命名的函数调用代码**，服务端将前端需要的数据作为参数传入函数调用），此种AJAX传输协议也叫做“JSONP”。
 <pre class="brush:js;">
 function success(json) {
-    //成功回调
+    // 成功回调
 }
 
-//创建 script 标签并加入到页面中
+// 创建 script 标签并加入到页面中
 var callbackName = ('jsonp_' + Math.random()).replace(".", "");
 var head = document.getElementsByTagName('head')[0];
 var script = document.createElement('script');
 head.appendChild(script);
 var timer = setTimeout(function() {
     window[callbackName] = undefined;
-    //如果20s后还未能执行jsonp回调，则认为失败！...
+    // 如果20s后还未能执行jsonp回调，则认为失败！...
+    // 如需要此处可增加异常逻辑处理，errorCallback()
 }, 20000);
 
-//创建jsonp回调函数
-//response为jsonp_随机数({JSON数据})
+// 创建jsonp回调函数
+// response为jsonp_随机数({JSON数据})
 window[callbackName] = function (json) {
     window.clearTimeout(timer);
     head.removeChild(script);
     window[callbackName] = undefined;
-    //执行成功方法
+    // 执行成功方法
     success(json);
 };
 //发送请求(callback是和服务端约定的获取回调函数名称的key，而“callback”为大多数情况下的默认值)
@@ -105,7 +106,7 @@ function createXHR(){
     }
 }
 // 封装ajax
-function create_ajax(obj){
+function createAjax(obj){
     obj = obj || {};
     var xhr = createXHR();
     obj.url = obj.url + "?rand=" + Math.random(); // 防止缓存
@@ -156,7 +157,7 @@ function create_ajax(obj){
     }
 }
 
-create_ajax({
+createAjax({
     "method" : "get",
     "url" : "目的URI",
     "data" : '',
